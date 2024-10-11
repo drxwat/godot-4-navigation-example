@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://crkea3tubitpw"]
+
+[ext_resource type="Script" path="res://examples/example_3_door_nav_link/example_3_door_nav_link.gd" id="1_dmpmv"]
+[ext_resource type="Script" path="res://elements/navigation_manager.gd" id="2_xpqlx"]
+[ext_resource type="Texture2D" uid="uid://bcvf3q3x3tsuy" path="res://assets/textures/Dark/texture_04.png" id="3_ikqrw"]
+[ext_resource type="Script" path="res://assets/free_look_camera.gd.gd" id="4_ifryv"]
+[ext_resource type="PackedScene" uid="uid://dc7nc2xcf8i8e" path="res://examples/example_3_door_nav_link/nav_link_door/nav_link_door.tscn" id="4_rqt56"]
+[ext_resource type="PackedScene" uid="uid://ckfc8tljefix" path="res://elements/character_bot/character_bot.tscn" id="5_d64ru"]
+[ext_resource type="PackedScene" uid="uid://bpl5xn8im22qd" path="res://examples/example_3_door_nav_link/nav_limk_door_trigger/nav_limk_door_trigger.tscn" id="5_sqry6"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_7u8tc"]
+vertices = PackedVector3Array(-0.648327, 0.517077, -5.58484, 0.101673, 0.517077, -4.58484, 2.35167, 0.517077, -4.58484, 2.10167, 0.517077, -8.33484, -5.39833, 0.517077, -8.33484, -5.39833, 0.517077, -5.58484, 5.35167, 0.517077, -6.08484, 4.85167, 0.517077, -5.83484, 4.85167, 0.517077, -4.58484, 6.35167, 0.517077, -4.58484, 6.35167, 0.517077, -8.33484, 5.35167, 0.517077, -8.33484, 0.101673, 3.26708, -2.58484, 0.101673, 3.26708, -1.58484, 1.60167, 2.01708, -1.58484, 5.60167, 1.76708, -2.58484, 1.47667, 2.01708, -2.58484, -0.398327, 0.767077, 0.41516, -5.39833, 0.517077, 0.91516, 5.60167, 1.76708, 0.91516, 1.60167, 1.76708, 0.41516, -1.27333, 0.517077, 0.91516, 1.47667, 1.76708, 0.91516, 2.10167, 1.76708, -1.08484, -1.14833, 0.517077, -0.33484, -0.648327, 0.517077, -3.08484, -5.39833, 0.517077, -2.83484, -1.14833, 4.01708, -1.58484, -4.64833, 4.01708, -2.33484, -1.08583, 4.01708, -2.52234, -4.64833, 4.01708, 1.16516, -1.89833, 4.01708, 1.16516, -1.89833, 4.01708, -0.83484)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(11, 10, 6), PackedInt32Array(6, 10, 9), PackedInt32Array(12, 16, 13), PackedInt32Array(13, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(19, 22, 20), PackedInt32Array(20, 22, 17), PackedInt32Array(17, 22, 21), PackedInt32Array(17, 21, 18), PackedInt32Array(23, 14, 15), PackedInt32Array(20, 23, 19), PackedInt32Array(19, 23, 15), PackedInt32Array(18, 24, 17), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 18), PackedInt32Array(12, 13, 29), PackedInt32Array(29, 13, 27), PackedInt32Array(29, 27, 28), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 28), PackedInt32Array(27, 32, 28)]
+agent_radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5pl0"]
+albedo_texture = ExtResource("3_ikqrw")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4gmhj"]
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_3koy4"]
+sky_material = SubResource("ProceduralSkyMaterial_4gmhj")
+
+[sub_resource type="Environment" id="Environment_f46sk"]
+background_mode = 2
+sky = SubResource("Sky_3koy4")
+
+[node name="Example3DoorNavLink" type="Node3D"]
+script = ExtResource("1_dmpmv")
+
+[node name="NavigationManager" type="Node3D" parent="."]
+script = ExtResource("2_xpqlx")
+camera_path = NodePath("../Camera3D")
+character_bot_path = NodePath("../CharacterBot")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_7u8tc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.461273, 0, -3.57324)
+use_collision = true
+size = Vector3(13.7192, 0.0478516, 11.5232)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.453186, 1.84717, 2.09943)
+use_collision = true
+size = Vector3(13.641, 3.74219, 0.177858)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.91837, 0.708811, -3.99827)
+use_collision = true
+size = Vector3(2.82032, 1.36691, 0.178)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.91837, 0.708811, -4.48849)
+use_collision = true
+size = Vector3(2.82032, 1.36691, 0.178)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.27671, 0.708811, -7.84499)
+use_collision = true
+size = Vector3(2.82032, 1.36691, 0.178)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.03897, 0.708811, -7.84499)
+use_collision = true
+size = Vector3(2.82032, 1.36691, 0.178)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13952, 1.13746, -0.630809)
+use_collision = true
+size = Vector3(4.84462, 0.538299, 5.42878)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.26812, 3.27618, -0.61201)
+use_collision = true
+size = Vector3(4.57844, 0.538299, 5.39118)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(0.884752, -0.466062, 0, 0.466062, 0.884752, 0, 0, 0, 1, 0.463369, 0.482052, 0.640603)
+use_collision = true
+size = Vector3(3.11909, 0.538299, 2.74765)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-0.775352, 0.631529, -8.57092e-08, 0.631529, 0.775352, 1.72244e-08, 7.73325e-08, -4.07728e-08, -1, 0.312608, 2.19807, -2.07593)
+use_collision = true
+size = Vector3(3.82228, 0.498642, 2.54094)
+material = SubResource("StandardMaterial3D_w5pl0")
+
+[node name="NavLinkDoor" parent="NavigationRegion3D" instance=ExtResource("4_rqt56")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28861, 0, -4.26751)
+opened = false
+
+[node name="NavLinkDoor2" parent="NavigationRegion3D" instance=ExtResource("4_rqt56")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.64401, -0.247139, -5.47586)
+opened = false
+
+[node name="NavLinkDoorTrigger" parent="NavigationRegion3D" instance=ExtResource("5_sqry6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.19542, 0, -7.42324)
+door_path = NodePath("../NavLinkDoor2")
+
+[node name="NavLinkDoorTrigger2" parent="NavigationRegion3D" instance=ExtResource("5_sqry6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8124, 0, -7.42324)
+door_path = NodePath("../NavLinkDoor")
+autoclose_timeout = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.999223, 0, 0.0394167, 0.0122334, 0.950619, 0.31012, -0.0374703, 0.310361, -0.94988, 0, 4.67302, -7.44668)
+current = true
+script = ExtResource("4_ifryv")
+sensitivity = 6.0
+default_velocity = 10.0
+speed_scale = 3.0
+boost_speed_multiplier = 1.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.400381, 0.916349, 0, -0.916349, -0.400381, 0, 9.7703, 9.47701)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f46sk")
+
+[node name="CharacterBot" parent="." instance=ExtResource("5_d64ru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.519412, -6.34057)
